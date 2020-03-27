@@ -63,8 +63,11 @@ class GraphSearch:
 
     def DFSRec(self, start: GraphNode, end: GraphNode) -> list():
         answer = []
-        answer = self.DFSRecHelper(start, end, answer)
-        return answer
+        self.DFSRecHelper(start, end, answer)
+        if(len(answer) == 0):
+            return None
+        else:
+            return answer
     
     def DFSRecHelper(self, start: GraphNode, end: GraphNode, Answer: list):
         start.visited = True
@@ -74,27 +77,18 @@ class GraphSearch:
         for neighbor in start.neighbors:
             if(not neighbor.visited):
                 neighbor.visited = True
-                if(neighbor == end):
-                    Answer.append(neighbor)
-                    break
                 self.DFSRecHelper(neighbor, end, Answer)
-        remove = True
-        for i in start.neighbors:
-            if(not i.visited):
-                remove = False
 
-        if(end in Answer):
-            remove = False
-        
-        if(remove):
+        if(end not in Answer):
             Answer.pop()
+
         return Answer
 
 if __name__ == "__main__":
     g = Graph()
     for i in range(9):
         g.addNode(i)
-
+    g.addNode(9)
     g.addUndirectedEdge(g.nodes[0],g.nodes[1])
     g.addUndirectedEdge(g.nodes[0],g.nodes[2])
     g.addUndirectedEdge(g.nodes[2],g.nodes[3])
@@ -114,6 +108,7 @@ if __name__ == "__main__":
         print()
 
     search = GraphSearch()
-    x = search.DFSRec(g.nodes[7],g.nodes[4])
+    print(search.DFSRec(g.nodes[0],g.nodes[9]))
+    x = search.DFSRec(g.nodes[0],g.nodes[8])
     for i in x:
         print(i.value)
