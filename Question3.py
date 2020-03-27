@@ -60,7 +60,35 @@ def createLinkedList(n: int) -> Graph:
 
 
 class GraphSearch:
+    def DFSIter(self, start: GraphNode, end: GraphNode):
+        path = []
+        stack = []
+        stack.append(start)
+        while stack:
+            node = stack.pop()
+            #if(node == end):
+            #    path.append(node)
+            #    return path
 
+            node.visited = True
+            hasUnvisitedNodes = False
+            for neighbor in node.neighbors:
+                if(not neighbor.visited):
+                    hasUnvisitedNodes = True
+                    stack.append(neighbor)
+            
+            if(not hasUnvisitedNodes):
+                path.pop()
+            else:
+                path.append(node)
+                if(node == end):
+                    return path
+
+            if(node == end):
+                path.append(node)
+                return path
+
+        return None
     def DFSRec(self, start: GraphNode, end: GraphNode) -> list():
         answer = []
         self.DFSRecHelper(start, end, answer)
@@ -108,7 +136,7 @@ if __name__ == "__main__":
         print()
 
     search = GraphSearch()
-    print(search.DFSRec(g.nodes[0],g.nodes[9]))
-    x = search.DFSRec(g.nodes[0],g.nodes[8])
+    
+    x = search.DFSIter(g.nodes[0],g.nodes[8])
     for i in x:
         print(i.value)
