@@ -137,6 +137,6 @@ if __name__ == "__main__":
 
     search = GraphSearch()
     
-    x = search.DFSIter(g.nodes[0],g.nodes[8])
+    x = search.DFSIter(g.nodes[4],g.nodes[8])
     for i in x:
         print(i.value)
