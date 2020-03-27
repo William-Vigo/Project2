@@ -4,7 +4,7 @@ class GraphNode:
         self.value = Value
         self.visited = False
         self.neighbors = []
-
+#Question 3a
 class Graph:
     def __init__(self):
         self.nodes = []
@@ -28,6 +28,7 @@ class Graph:
     def getAllNodes(self):
         return set(self.nodes)
 
+#Question 3b
 def createRandomUnweightedGraphIter(n: int) -> Graph:
     g = Graph()
     for i in range(n):
@@ -46,7 +47,7 @@ def createRandomUnweightedGraphIter(n: int) -> Graph:
                 g.addUndirectedEdge(g.nodes[randIndex], node)
 
     return g
-
+#Question 3c
 def createLinkedList(n: int) -> Graph:
     g = Graph()
     for i in range(n):
@@ -57,14 +58,62 @@ def createLinkedList(n: int) -> Graph:
 
     return g
 
-if __name__ == "__main__":
-    graph = createRandomUnweightedGraphIter(5)
-    graph1 = createLinkedList(5)
 
-    nodes1 = graph1.getAllNodes()
-    nodes = graph.getAllNodes()
+class GraphSearch:
+
+    def DFSRec(self, start: GraphNode, end: GraphNode) -> list():
+        answer = []
+        answer = self.DFSRecHelper(start, end, answer)
+        return answer
+    
+    def DFSRecHelper(self, start: GraphNode, end: GraphNode, Answer: list):
+        start.visited = True
+        if(end not in Answer):
+            Answer.append(start) 
+
+        for neighbor in start.neighbors:
+            if(not neighbor.visited):
+                neighbor.visited = True
+                if(neighbor == end):
+                    Answer.append(neighbor)
+                    break
+                self.DFSRecHelper(neighbor, end, Answer)
+        remove = True
+        for i in start.neighbors:
+            if(not i.visited):
+                remove = False
+
+        if(end in Answer):
+            remove = False
+        
+        if(remove):
+            Answer.pop()
+        return Answer
+
+if __name__ == "__main__":
+    g = Graph()
+    for i in range(9):
+        g.addNode(i)
+
+    g.addUndirectedEdge(g.nodes[0],g.nodes[1])
+    g.addUndirectedEdge(g.nodes[0],g.nodes[2])
+    g.addUndirectedEdge(g.nodes[2],g.nodes[3])
+    g.addUndirectedEdge(g.nodes[2],g.nodes[6])
+    g.addUndirectedEdge(g.nodes[3],g.nodes[4])
+    g.addUndirectedEdge(g.nodes[5],g.nodes[3])
+    g.addUndirectedEdge(g.nodes[3],g.nodes[7])
+    g.addUndirectedEdge(g.nodes[5],g.nodes[6])
+    g.addUndirectedEdge(g.nodes[6],g.nodes[8])
+    g.addUndirectedEdge(g.nodes[8],g.nodes[7])
+
+    nodes1 = g.getAllNodes()
     for i in nodes1:
         print(i.value, end =" -> ")
         for x in i.neighbors:
             print(x.value, end=" ->")
         print()
+
+    search = GraphSearch()
+    x = search.DFSRec(g.nodes[7],g.nodes[4])
+    for i in x:
+        print(i.value)
