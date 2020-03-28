@@ -60,16 +60,44 @@ def createLinkedList(n: int) -> Graph:
 
 
 class GraphSearch:
+    def BFTRec(self, g: Graph) -> list():
+        nodes = []
+        queue = []
+        queue.append(g.nodes[7])
+        return self.BFTRecHelper(queue[0], nodes, queue)
+    def BFTRecHelper(self, cur: GraphNode, nodes: list(), queue: list()):
+        while queue:
+            nodes.append(cur)
+            cur.visited = True
+            for neighbor in cur.neighbors:
+                if(not neighbor.visited):
+                    neighbor.visited = True
+                    queue.append(neighbor)
+            queue.pop(0)
+            if(queue):
+                self.BFTRecHelper(queue[0],nodes, queue)
+            
+        return nodes
+
+    def BFTIter(self, g: Graph) -> list():
+        nodes = []
+        queue = []
+        queue.append(g.nodes[0])
+        while queue:
+            node = queue.pop(0)
+            node.visited = True
+            for neighbor in node.neighbors:
+                if(not neighbor.visited):
+                    neighbor.visited = True
+                    queue.append(neighbor)
+            nodes.append(node)
+        return nodes
     def DFSIter(self, start: GraphNode, end: GraphNode):
         path = []
         stack = []
         stack.append(start)
         while stack:
             node = stack.pop()
-            #if(node == end):
-            #    path.append(node)
-            #    return path
-
             node.visited = True
             hasUnvisitedNodes = False
             for neighbor in node.neighbors:
@@ -137,6 +165,6 @@ if __name__ == "__main__":
 
     search = GraphSearch()
     
-    x = search.DFSIter(g.nodes[4],g.nodes[8])
+    x = search.BFTRec(g)
     for i in x:
         print(i.value)
