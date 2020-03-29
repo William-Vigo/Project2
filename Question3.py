@@ -63,7 +63,7 @@ class GraphSearch:
     def BFTRec(self, g: Graph) -> list():
         nodes = []
         queue = []
-        queue.append(g.nodes[7])
+        queue.append(g.nodes[0])
         return self.BFTRecHelper(queue[0], nodes, queue)
     def BFTRecHelper(self, cur: GraphNode, nodes: list(), queue: list()):
         while queue:
@@ -140,31 +140,60 @@ class GraphSearch:
 
         return Answer
 
+#Question 3h
+def BFTRecLinkedList(g: Graph) -> list():
+    solve = GraphSearch()
+    return solve.BFTRec(g)
+
+def BFTIterLinkedList(g: Graph) -> list():
+    solve = GraphSearch()
+    return solve.BFTIter(g)
+
 if __name__ == "__main__":
-    g = Graph()
-    for i in range(9):
-        g.addNode(i)
-    g.addNode(9)
-    g.addUndirectedEdge(g.nodes[0],g.nodes[1])
-    g.addUndirectedEdge(g.nodes[0],g.nodes[2])
-    g.addUndirectedEdge(g.nodes[2],g.nodes[3])
-    g.addUndirectedEdge(g.nodes[2],g.nodes[6])
-    g.addUndirectedEdge(g.nodes[3],g.nodes[4])
-    g.addUndirectedEdge(g.nodes[5],g.nodes[3])
-    g.addUndirectedEdge(g.nodes[3],g.nodes[7])
-    g.addUndirectedEdge(g.nodes[5],g.nodes[6])
-    g.addUndirectedEdge(g.nodes[6],g.nodes[8])
-    g.addUndirectedEdge(g.nodes[8],g.nodes[7])
+    '''
+    g = createLinkedList(10000)
 
-    nodes1 = g.getAllNodes()
-    for i in nodes1:
-        print(i.value, end =" -> ")
-        for x in i.neighbors:
-            print(x.value, end=" ->")
-        print()
-
-    search = GraphSearch()
+    bft = BFTIterLinkedList(g)
     
-    x = search.BFTRec(g)
-    for i in x:
-        print(i.value)
+    for i in bft:
+        print(i.value, end= " ")
+    '''
+    cheeseGraph = Graph()
+    for i in range(25):
+        cheeseGraph.addNode(i)
+
+    cheeseGraph.addUndirectedEdge(cheeseGraph.nodes[0], cheeseGraph.nodes[1])
+    cheeseGraph.addUndirectedEdge(cheeseGraph.nodes[0], cheeseGraph.nodes[5])
+    cheeseGraph.addUndirectedEdge(cheeseGraph.nodes[1], cheeseGraph.nodes[6])
+    cheeseGraph.addUndirectedEdge(cheeseGraph.nodes[2], cheeseGraph.nodes[3])
+    cheeseGraph.addUndirectedEdge(cheeseGraph.nodes[3], cheeseGraph.nodes[8])
+    cheeseGraph.addUndirectedEdge(cheeseGraph.nodes[4], cheeseGraph.nodes[9])
+
+    cheeseGraph.addUndirectedEdge(cheeseGraph.nodes[6], cheeseGraph.nodes[7])
+    cheeseGraph.addUndirectedEdge(cheeseGraph.nodes[6], cheeseGraph.nodes[11])
+    cheeseGraph.addUndirectedEdge(cheeseGraph.nodes[7], cheeseGraph.nodes[12])
+    cheeseGraph.addUndirectedEdge(cheeseGraph.nodes[8], cheeseGraph.nodes[9])
+    cheeseGraph.addUndirectedEdge(cheeseGraph.nodes[9], cheeseGraph.nodes[14])
+
+    cheeseGraph.addUndirectedEdge(cheeseGraph.nodes[10], cheeseGraph.nodes[11])
+    cheeseGraph.addUndirectedEdge(cheeseGraph.nodes[10], cheeseGraph.nodes[15])
+    cheeseGraph.addUndirectedEdge(cheeseGraph.nodes[11], cheeseGraph.nodes[16])
+    cheeseGraph.addUndirectedEdge(cheeseGraph.nodes[12], cheeseGraph.nodes[13])
+    cheeseGraph.addUndirectedEdge(cheeseGraph.nodes[14], cheeseGraph.nodes[19])
+
+    cheeseGraph.addUndirectedEdge(cheeseGraph.nodes[15], cheeseGraph.nodes[20])
+    cheeseGraph.addUndirectedEdge(cheeseGraph.nodes[17], cheeseGraph.nodes[18])
+    cheeseGraph.addUndirectedEdge(cheeseGraph.nodes[17], cheeseGraph.nodes[22])
+    cheeseGraph.addUndirectedEdge(cheeseGraph.nodes[18], cheeseGraph.nodes[19])
+    
+    cheeseGraph.addUndirectedEdge(cheeseGraph.nodes[20], cheeseGraph.nodes[21])
+    cheeseGraph.addUndirectedEdge(cheeseGraph.nodes[21], cheeseGraph.nodes[22])
+    cheeseGraph.addUndirectedEdge(cheeseGraph.nodes[22], cheeseGraph.nodes[23])
+    cheeseGraph.addUndirectedEdge(cheeseGraph.nodes[23], cheeseGraph.nodes[24])
+    
+    search = GraphSearch()
+    path = search.DFSRec(cheeseGraph.nodes[0],cheeseGraph.nodes[0])
+
+    for i in path:
+        print(i.value, end=" -> ")
+    print()
