@@ -3,6 +3,7 @@ class GraphNode:
     def __init__(self, Value: int):
         self.value = Value
         self.visited = False
+        self.parent = None
         self.neighbors = []
 #Question 3a
 class Graph:
@@ -96,25 +97,25 @@ class GraphSearch:
         path = []
         stack = []
         stack.append(start)
+        found = False
         while stack:
             node = stack.pop()
             node.visited = True
-            hasUnvisitedNodes = False
+            if(node == end):
+                found = True
+                break
             for neighbor in node.neighbors:
                 if(not neighbor.visited):
-                    hasUnvisitedNodes = True
                     stack.append(neighbor)
-            
-            if(not hasUnvisitedNodes):
-                path.pop()
-            else:
-                path.append(node)
-                if(node == end):
-                    return path
+                    neighbor.parent = node
 
-            if(node == end):
-                path.append(node)
-                return path
+        if(found):
+            path.insert(0,end)
+            while(end.parent):
+                path.insert(0,end.parent)
+                end = end.parent
+        return path 
+           
 
         return None
     def DFSRec(self, start: GraphNode, end: GraphNode) -> list():
@@ -192,8 +193,9 @@ if __name__ == "__main__":
     cheeseGraph.addUndirectedEdge(cheeseGraph.nodes[23], cheeseGraph.nodes[24])
     
     search = GraphSearch()
-    path = search.DFSRec(cheeseGraph.nodes[0],cheeseGraph.nodes[0])
+    path = search.DFSRec(cheeseGraph.nodes[2],cheeseGraph.nodes[22])
 
     for i in path:
         print(i.value, end=" -> ")
     print()
+
