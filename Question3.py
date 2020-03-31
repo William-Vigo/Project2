@@ -36,8 +36,8 @@ def createRandomUnweightedGraphIter(n: int) -> Graph:
         g.addNode(i)
 
     for node in g.nodes:
-        #each node has to have at least 1 edge
-        edges = rand.randint(1,1)
+        #50/50 shot of connecting nodes
+        edges = rand.randint(0,1)
         #connect nodes
         connections = 0
         while(connections != edges):
