@@ -93,7 +93,7 @@ def createRandomDagIter(n: int) -> DirectedGraph:
     return g
 
 if __name__ == "__main__":
-    g = createRandomDagIter(10)
+    g = createRandomDagIter(1000)
 
     for i in g.vertexList:
         print(i.val, end=" -> ")
