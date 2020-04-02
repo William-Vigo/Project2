@@ -1,11 +1,12 @@
 import random as rand
+import heapq
 class GridNode:
-    def __init__(self, x, y, value):
+    def __init__(self, x_coord, y_coord, value):
         self.val = value
-        self.x = x
-        self.y = y
+        self.x = x_coord
+        self.y = y_coord
         self.parent = None
-        self.Fcost = 0
+        self.f_cost = float('inf')
         self.visited = False
         self.neighbors = []
 
@@ -56,8 +57,47 @@ def createRandomGridGraph(n: int):
                 g.addUndirectedEdge(g.vertexList[i][j+1], g.vertexList[i][j])
     return g
 
-if __name__ == "__main__":
-    g = createRandomGridGraph(3)
+def astar(start: GridNode, end: GridNode):
+    nodes = []
+    start.f_cost = 0
+    nodes.append(start)
+    found = False
+    while nodes:
+        nodes.sort(key=lambda x: x.f_cost, reverse=True)
+        curr = nodes.pop(0)
+        curr.visited = True
+        if(curr == end):
+            found = True
+            break
+        for neighbor in curr.neighbors:
+            if len(neighbor.neighbors) == 0 or neighbor.visited:
+                continue
+            #calculate heuristic (manhatton distance)
+            h_cost = abs(end.x - neighbor.x) + abs(end.y - neighbor.y)
+            g_cost = abs(neighbor.x - start.x) + abs(neighbor.y - start.y)
+            f_cost = h_cost + g_cost
 
+            if(f_cost < neighbor.f_cost) or not neighbor.visited:
+                neighbor.f_cost = f_cost
+                neighbor.parent = curr
+                if not neighbor.visited:
+                    nodes.append(neighbor)
+                    
+
+    if found:
+        answer = []
+        while end.parent:
+            answer.insert(0, end)
+            end = end.parent
+
+        return answer
+           
+    
+if __name__ == "__main__":
+    g = createRandomGridGraph(9)
+    x = astar(g.vertexList[0][0], g.vertexList[8][8])
+
+    for i in x:
+        print(i.x, i.y)
     pass    
     
