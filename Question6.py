@@ -42,7 +42,7 @@ def createRandomGridGraph(n: int):
             g.addGridNode(i,j,count)
 
     for i in range(n):
-        for j in range(i, n):
+        for j in range(n):
             #check up
             if (i-1) >= 0 and rand.randint(0, 1):
                 g.addUndirectedEdge(g.vertexList[i-1][j], g.vertexList[i][j])
@@ -92,7 +92,7 @@ def astar(start: GridNode, end: GridNode):
     
 if __name__ == "__main__":
     g = createRandomGridGraph(6)
-    x = astar(g.vertexList[0][0], g.vertexList[5][5])
+    x = astar(g.vertexList[0][0], g.vertexList[2][0])
 
     for i in x:
         print(i.x, i.y)
