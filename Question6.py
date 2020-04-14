@@ -81,7 +81,6 @@ def astar(start: GridNode, end: GridNode):
             return None
         curr = min(nodeMap, key=nodeMap.get)
         
-
     answer = []
     while end:
         answer.insert(0,end)
