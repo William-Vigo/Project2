@@ -91,9 +91,9 @@ def astar(start: GridNode, end: GridNode):
     
 if __name__ == "__main__":
     g = createRandomGridGraph(6)
-    x = astar(g.vertexList[0][0], g.vertexList[2][0])
+    astarSol = astar(g.vertexList[0][0], g.vertexList[2][0])
 
-    for i in x:
+    for i in astarSol:
         print(i.x, i.y)
     pass    
     
