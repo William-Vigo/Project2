@@ -28,7 +28,6 @@ class WeightedGraph:
         if(first in second.neighbors):
             second.neighbors.remove(first)
         
-
     def getAllNodes(self):
         return set(self.vertexList)
 class TreadmillMazeSolver:
