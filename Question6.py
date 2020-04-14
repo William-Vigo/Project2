@@ -6,7 +6,6 @@ class GridNode:
         self.x = x_coord
         self.y = y_coord
         self.parent = None
-        #self.f_cost = float('inf')
         self.visited = False
         self.neighbors = []
 
